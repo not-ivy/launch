@@ -19,6 +19,10 @@
 <script src="/theme.js"></script>
 
 <script>
+    const theme = new Theme();
+    theme.install(document.body);
+    theme.start();
+
     document.getElementById('title').innerHTML = `
     +${'-'.repeat(105)}+<br>
     |${'&nbsp;'.repeat(50)}Title${'&nbsp;'.repeat(50)}|<br>
