@@ -1,92 +1,108 @@
+<!--nbsp hell-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Start</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A simple launch page!">
 </head>
-<body>
-<br><br><br>
-<pre class="title">
-    +---------------------------+
-    |           Start           |
-    +---------------------------+
-</pre>
 
-<br><br><br>
-<pre class="block1">
-    +---------------+
-    |      Dev      |
-    |               |
-    |    <a href="https://github.com">GitHub</a>     |
-    |               |
-    |               |
-    | <a href="https://stackoverflow.com/">StackOverFlow</a> |
-    |               |
-    |               |
-    |   <a href="https://wiki.archlinux.org/">Arch Wiki</a>   |
-    |               |
-    |               |
-    |               |
-    +---------------+
-</pre>
-<pre class="block2">
-    +---------------+
-    |    School     |
-    |               |
-    |   <a href="https://classroom.google.com/u/1/">Classroom</a>   |
-    |               |
-    |               |
-    |   <a href="https://app.sycamoreschool.com/index.php">Sycamore</a>    |
-    |               |
-    |               |
-    |  <a href="https://docs.google.com/">Google Docs</a>  |
-    |               |
-    |               |
-    |               |
-    +---------------+
-</pre>
-<pre class="block3">
-    +---------------+
-    |     Misc      |
-    |               |
-    |   <a href="https://www.reddit.com/r/unixporn">r/unixporn</a>  |
-    |               |
-    |               |
-    |    <a href="https://youtube.com">YouTube</a>    |
-    |               |
-    |               |
-    |    <a href="https://www.twitch.tv/">Twitch</a>     |
-    |               |
-    |               |
-    |               |
-    +---------------+
-</pre>
+<body>
+    <p id="title" class="monospace">
+    </p>
+
+    <div id="boxes">
+    </div>
 </body>
 
+<script src="./theme.js"></script>
+
+<script>
+    document.getElementById('title').innerHTML = `
+    +${'-'.repeat(105)}+<br>
+    |${'&nbsp;'.repeat(50)}Title${'&nbsp;'.repeat(50)}|<br>
+    +${'-'.repeat(105)}+
+    `;
+
+    const boxes = new Map();
+    boxes.set('Coding', [
+        {link: 'https://github.com', name: 'GitHub'},
+        {link: 'https://stackoverflow.com', name: 'Stack Overflow'},
+        {link: 'https://developer.mozilla.org', name: 'MDN Web Docs'},
+    ]);
+    boxes.set('Misc', [
+        {link: 'https://www.twitch.tv', name: 'Twitch'},
+        {link: 'https://www.youtube.com', name: 'YouTube '},
+        {link: 'https://www.reddit.com', name: 'Reddit'},
+    ]);
+    boxes.set('School', [
+        {link: 'https://my.iusd.org', name: 'Portal'},
+        {link: 'https://iusd.instructure.com', name: 'Canvas'},
+        {link: 'https://docs.google.com', name: 'Google Doc'},
+    ])
+
+    boxes.forEach((value, key) => {
+        const box = document.createElement('div');
+        box.className = 'monospace';
+
+        box.innerHTML = `
+        +${'-'.repeat(20)}+<br>
+        |${'&nbsp'.repeat(20)}|<br>
+        |${'&nbsp'.repeat((20 - key.length) / 2)}${key}${'&nbsp'.repeat((20 - key.length) / 2)}|<br>
+        |${'&nbsp'.repeat(20)}|<br>
+        `
+
+        value.forEach(link => {
+            box.innerHTML += `
+            |${'&nbsp'.repeat(20)}|<br>
+            |${'&nbsp'.repeat((20 - link.name.length) / 2)}<a href="${link.link}">${link.name}</a>${'&nbsp'.repeat((20 - link.name.length) / 2)}|<br>
+            |${'&nbsp'.repeat(20)}|<br>
+            `
+        });
+
+        box.innerHTML += `+${'-'.repeat(20)}+`;
+
+        document.getElementById('boxes').appendChild(box);
+    });
+</script>
+
 <style>
-    pre {
-        font-family: Menlo, Consolas, monospace;
+    html {
+        background-color: var(--background);
+        color: var(--f_high)
+    }
+
+    body {
+        margin: 5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    a:hover {
+        color: var(--f_low)
+    }
+
+    a:visited {
+        color: var(--f_low)
+    }
+
+    #boxes {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+
+        margin-top: 3em;
+    }
+
+    .monospace {
+        font-family: 'Menlo', 'Consolas', monospace;
         font-size: 15px;
-        top: 40%;
-    }
-    .title {
-        text-align: center;
-    }
-    .block1, .block2, .block3 {
-        position: absolute;
-        top: 40%;
-        transform: translate(-50%, -50%);
-    }
-    .block1 {
-        left: 25%;
-    }
-    .block2 {
-        left: 50%;
-    }
-    .block3 {
-        left: 75%;
     }
 </style>
 
